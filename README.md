@@ -12,3 +12,9 @@ Consiste num sistema de gestão de hotel.
 * Tela para cadastro/edição de produtos do frigobar
 * Tela para confirmar checkin/checkout
 * Tela para extrato do hospede contendo valor de hospedagem/dias/frigobar e saldo
+
+## Equipe
+
+* Thiago Kalleb
+* Mara Oliveira
+* Rafael Costa
