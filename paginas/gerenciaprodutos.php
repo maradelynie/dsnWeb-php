@@ -7,32 +7,38 @@ if (!isset($_SESSION)){
     echo $_SESSION['perfil'];
 
     $sair = "document.location.href='./disconnect.php'";
+    $reserva = "document.location.href='./gerenciareservas.php'";
+    $usuarios = "document.location.href='./gerenciausuarios.php'";
+    $clientes = "document.location.href='./gerenciaclientes.php'";
+    $apartamentos = "document.location.href='./gerenciaapartamentos.php'";
+    $produtos = "document.location.href='./gerenciaprodutos.php'";
+    $servico = "document.location.href='./gerenciaservicos.php'";
     // $nome = $_SESSION['nome']
 
     if($_SESSION['perfil']==3){
         echo '<html lang="pt-br">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Hotel Lorem Ipson</title>
-                <link rel="stylesheet" href="style.css">
-            </head>
-            <body>
-                <div class="conteiner">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Hotel Lorem Ipson</title>
+            <link rel="stylesheet" href="style.css">
+        </head>
+        <body>
+            <div class="conteiner">
+                
+                <form  class="form__login">
                     
-                    <form  class="form__login">
-                        
-                        <h1>Gerência</h1>
-                        
-                            <div class="menu">
-                                <button class="menu__default" type="button">Reservas</button>
-                                <button class="menu__default" type="button">Usuários</button>
-                                <button class="menu__default" type="button">Clientes</button>
-                                <button class="menu__default" type="button">Apartamentos</button>
-                                <button class="menu__default--active" type="button">Produtos</button>
-                                <button class="menu__default" type="button">Serviços</button>
-            
-                            </div>
+                    <h1>Gerência</h1>
+                    
+                        <div class="menu">
+                            <button class="menu__default" onclick="document.location.href='.$reserva.'" type="button">Reservas</button>
+                            <button class="menu__default" onclick="document.location.href='.$usuarios.'" type="button">Usuários</button>
+                            <button class="menu__default" onclick="document.location.href='.$clientes.'" type="button">Clientes</button>
+                            <button class="menu__default" onclick="document.location.href='.$apartamentos.'" type="button">Apartamentos</button>
+                            <button class="menu__default--active" onclick="document.location.href='.$produtos.'" type="button">Produtos</button>
+                            <button class="menu__default" onclick="document.location.href='.$servico.'" type="button">Serviços</button>
+        
+                        </div>
                             <div class="input__gerencia">
                                 <input class="input__default" placeholder="ID do produto" type="text" name="ID do produto"/>
                                 <input class="input__default" placeholder="valor" type="text" name="valor"/>
