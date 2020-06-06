@@ -1,7 +1,6 @@
 <?php
 if (!isset($_SESSION)){
     session_start();
-    echo $_SESSION['perfil'];
 
     $sair = "document.location.href='./_disconnect.php'";
     // $nome = $_SESSION['nome']
@@ -16,11 +15,11 @@ if (!isset($_SESSION)){
         </head>
         <body>
             <div class="conteiner">
-                <form class="form__login">
+                <form class="form__login" action="_cadastrar_cliente.php" method="POST">
                     <h1>Registro Interno</h1>
-                    <input class="input__default" placeholder="nome" type="text" name="nome"/>
-                    <input class="input__default" placeholder="cpf" type="text" name="cpf"/>
-                    <input class="input__default" placeholder="telefone" type="text" name="telefone"/>
+                    <input class="input__default" required placeholder="nome" type="text" name="nome"/>
+                    <input class="input__default" required placeholder="cpf" type="text" name="cpf"/>
+                    <input class="input__default" required placeholder="telefone" type="text" name="telefone"/>
                     <span><a href="./atendimento.php">Voltar</a>.</span>
                     <button class="button__default" type="submit">Enviar</button>
                 </form>

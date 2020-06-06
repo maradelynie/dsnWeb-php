@@ -1,10 +1,10 @@
 <?php
 if (!isset($_SESSION)){
     session_start();
-    echo $_SESSION['perfil'];
 
     $sair = "document.location.href='./_disconnect.php'";
     // $nome = $_SESSION['nome']
+    
 
     if($_SESSION['perfil']==2){
         echo '<html lang="pt-br">
@@ -18,18 +18,21 @@ if (!isset($_SESSION)){
             <div class="conteiner">
                 
                 <div class="form__login">
-                <form class="displayflexColum">
+                <form class="displayflexColum" action="_reservar.php" method="POST">
                     
                     <h1>Reserva</h1>
                     <div class="displayflex">
                         <label>Checkin
-                            <input class="input__default" type="date" name="checkin"/>
+                            <input class="input__default" required type="date" name="checkin"/>
                         </label>
                         <label>Checkout
-                            <input class="input__default" type="date" name="checkout"/>
+                            <input class="input__default" required type="date" name="checkout"/>
                         </label>
                         
+                        
                     </div>
+                    <input class="input__default" required placeholder="quantidade de hopedes" type="number" name="qnthospedes"/>
+
                     <span></span>
                     <button class="button__default" type="submit">reservar</button>
         
