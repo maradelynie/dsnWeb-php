@@ -1,13 +1,10 @@
 <?php
 session_start();
-$dataBase = "trabalho"; 
-$user = "root"; 
-$pass = ""; 
-$servidor = "localhost"; 
 
+include '_servidor.php';
 
 try{
-	$db = new PDO("mysql:host=$servidor;dbname=$dataBase", $user, $pass); 
+	
 	$sql = "SELECT * FROM tblUsuario where cpf='".$_POST['cpf']."' and senha='".$_POST['senha']."'"; 
 	
 	$res = $db->query($sql);

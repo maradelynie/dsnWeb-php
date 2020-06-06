@@ -3,7 +3,7 @@ if (!isset($_SESSION)){
     session_start();
     echo $_SESSION['perfil'];
 
-    $sair = "document.location.href='./disconnect.php'";
+    $sair = "document.location.href='./_disconnect.php'";
     // $nome = $_SESSION['nome']
 
     if($_SESSION['perfil']==2){
