@@ -53,18 +53,18 @@ if (!isset($_SESSION)){
                     </form>
                     
                     Criar reserva
-                    <form action="_reservar.php" method="POST">
+                    <form class="displayflexColum" action="_reservar.php" method="POST">
                         <input class="input__default" required placeholder="cpf do hospede" type="text" name="cpf"/>
                         <input class="input__default" required placeholder="Quantidade de Hospedes" type="number" name="qnthospedes"/>
                         <div class="displayflex">
-                            <label>Checkin
+                            <label><small>Checkin</small>
                                 <input class="input__default" required placeholder="Checkin" type="date" name="checkin"/>
                             </label>
-                            <label>Checkout
+                            <label><small>Checkout</small>
                                 <input class="input__default" required placeholder="Checkout" type="date" name="checkout"/>
                             </label>
                         </div>
-                        <button class="button__default" type="">fazer reservar</button>
+                        <button class="button__default" type="submit">fazer reservar</button>
                     </form>
 
                         

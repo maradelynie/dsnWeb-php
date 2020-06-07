@@ -4,6 +4,10 @@
 
 
 }
+
+table {border:none !important;font-size: 10px;background-color: #f1f1f1;border-radius: 8px;margin: 20px 0;}
+td {border:none !important; text-align: center;}
+
 body{
     background-color: #f1f1f1;
     background-image: url("./10_21/367502-PAXLKG-681.jpg");

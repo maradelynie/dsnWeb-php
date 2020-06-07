@@ -1,7 +1,6 @@
 <?php
 if (!isset($_SESSION)){
     session_start();
-    echo $_SESSION['perfil'];
     
     $sair = "document.location.href='./_disconnect.php'";
     $reserva = "document.location.href='./gerenciareservas.php'";
