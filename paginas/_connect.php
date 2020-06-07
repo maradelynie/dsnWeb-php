@@ -22,6 +22,7 @@ try{
 			if ($linha["status"] == 'A'){
 				$_SESSION['id'] = $idUsuario;
 				$_SESSION['perfil'] = $perfil;
+				$_SESSION['cpf'] = $cpf;
 				
 				if($perfil == 3){
 					header('Location: ./gerenciaReservas.php');

@@ -1,8 +1,8 @@
 <?php
 session_start();
 include '_servidor.php';
-$hoje = date("Y").'-'.date("m").'-'.date("d");
-
+include '_tela_aviso.php';
+echo $begin;
 
 if($_POST['IDreserva']!=0){
 
@@ -18,45 +18,43 @@ if($_POST['IDreserva']!=0){
             $pes = $res->fetchAll(PDO::FETCH_OBJ);
 
 
-            if($_POST['IDcliente']==0){
-                $_POST['IDcliente'] = $pes[0]->IDcliente;
+            if(!$_POST['IDcliente']){
+                $_POST['IDcliente'] = $pes[0]->idCliente;
             }
-            if($_POST['IDapartamento']==0){
+            if(!$_POST['IDapartamento']){
                 $_POST['IDapartamento'] = $pes[0]->idApartamento;
             }
-            if($_POST['qtdhospedes']==0){
+            if(!$_POST['qtdhospedes']){
                 $_POST['qtdhospedes'] = $pes[0]->qtdHospedes;
             }
-            if($_POST['datareserva']==0){
+            if(!$_POST['datareserva']){
                 $_POST['datareserva'] = $pes[0]->dataReserva;
             }
-            if($_POST['dataCheckin']==0){
+            if(!$_POST['dataCheckin']){
                 $_POST['dataCheckin'] = $pes[0]->dataCheckin;
             }
-            if($_POST['dataCheckout']==0){
+            if(!$_POST['dataCheckout']){
                 $_POST['dataCheckout'] = $pes[0]->dataCheckout;
             }
-            if($_POST['checkin']==0){
+            if(!$_POST['checkin']){
                 $_POST['checkin'] = $pes[0]->checkin;
             }
-            if($_POST['checkout']==0){
+            if(!$_POST['checkout']){
                 $_POST['checkout'] = $pes[0]->checkout;
             }
-            if($_POST['valortotal']==0){
+            if(!$_POST['valortotal']){
                 $_POST['valortotal'] = $pes[0]->valorTotalReserva;
             }
-            if($_POST['valorpago']==0){
+            if(!$_POST['valorpago']){
                 $_POST['valorpago'] = $pes[0]->valorPago;
             }
-            echo $pes[0]->idApartamento;
-            echo  $_POST['IDapartamento'];
 
             try{
 
                
                 $sql = "UPDATE `tblreserva` SET
                 
-                `idUsuario` = '".$_POST['IDcliente']."', 
+                `idCliente` = '".$_POST['IDcliente']."', 
                 `idApartamento` = '".$_POST['IDapartamento']."', 
                 `qtdHospedes` = '".$_POST['qtdhospedes']."', 
                 `dataReserva` = '".$_POST['datareserva']."', 
@@ -68,11 +66,15 @@ if($_POST['IDreserva']!=0){
                 `valorPago` = '".$_POST['valorpago']."'
                  
                 WHERE `tblreserva`.`idReserva` = ".$_POST['IDreserva']." ";
-                                
+                
                 $res = $db->query($sql);
-                
-                echo "alterado com sucesso";
-                
+                $resError = $db->errorCode  ();
+                if($resError == 0){
+                    echo "Registro alterado com sucesso";
+
+                }else{
+                    echo "Erro ".json_encode($db->errorInfo()[2]) ;
+                }
                 $db=null;
             }
             catch(PDOException $e) { 
@@ -95,7 +97,7 @@ if($_POST['IDreserva']!=0){
 
                 $sql = "INSERT INTO tblreserva 
                 (`idReserva`, 
-                `idUsuario`, 
+                `idCliente`, 
                 `idApartamento`, 
                 `qtdHospedes`, 
                 `dataReserva`, 
@@ -109,17 +111,18 @@ if($_POST['IDreserva']!=0){
                 (NULL, '".$_POST['IDcliente']."', '".$_POST['IDapartamento']."', '".$_POST['qtdhospedes']."', '".$_POST['datareserva']."', '".$_POST['dataCheckin']."', '".$_POST['dataCheckout']."', '".$_POST['checkin']."', '".$_POST['checkout']."', '".$_POST['valortotal']."', '".$_POST['valorpago']."')
                 "; 
                 
-                $res = $db->query($sql);
-                
-                echo "reservado";
+                $resError = $db->errorCode  ();
+                if($resError == 0){
+                    echo "Registro criado com sucesso " ;
+                }else{
+                    echo "Erro ".json_encode($db->errorInfo()[2]) ;
+                }
                 
                 $db=null;
             }
             catch(PDOException $e) { 
               echo $e->getMessage();
             }
-        
-        
         
         } else { 
             echo 'checkout com data invalida';
@@ -128,12 +131,9 @@ if($_POST['IDreserva']!=0){
         echo 'checkin com data invalida';
     };
 
-    
-
 }
 
-
-
+echo $end;
 
 ?>
 

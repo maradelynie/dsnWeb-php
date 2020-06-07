@@ -1,8 +1,12 @@
 <?php
     session_start();
+    include '_tela_aviso.php';
+    echo $begin;
+    
     unset($_SESSION['id']);
     unset($_SESSION['perfil']);
 
-    echo 'sessão encerrada <a href="./index.html">voltar para página inicial</a>';
-    echo json_encode($_SESSION);
+    echo 'Sessão encerrada.';
+
+    echo $end;
 ?>

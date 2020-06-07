@@ -1,4 +1,6 @@
 <?php
+include '_servidor.php';
+
 if (!isset($_SESSION)){
     session_start();
 
@@ -12,6 +14,26 @@ if (!isset($_SESSION)){
     // $nome = $_SESSION['nome']
 
     if($_SESSION['perfil']==3){
+       
+        try{
+            
+            $sql = "SELECT * FROM tblcliente " ; 
+                
+                $res = $db->query($sql);
+                $res = $db->prepare($sql);
+                $res->bindValue(1, '%a%');
+                $res->execute();
+                
+                $pes = $res->fetchAll(PDO::FETCH_OBJ);
+    
+                
+            $db=null;
+    
+        }
+        catch(PDOException $e) { 
+        echo $e->getMessage();
+        }
+    
         echo '<html lang="pt-br">
         <head>
             <meta charset="UTF-8">
@@ -22,7 +44,7 @@ if (!isset($_SESSION)){
         <body>
             <div class="conteiner">
                 
-                <form  class="form__login">
+                <form  class="form__login" action="_gerenciar_clientes.php" method="POST">
                     
                     <h1>Gerência</h1>
                     
@@ -36,18 +58,37 @@ if (!isset($_SESSION)){
         
                         </div>
                         <div class="input__gerencia">
-                            <input class="input__default" placeholder="ID do cliente" type="text" name="ID do cliente"/>
+                            <input class="input__default" placeholder="ID do cliente" type="text" name="IDcliente"/>
                             <input class="input__default" placeholder="nome" type="text" name="nome"/>
                             <input class="input__default" placeholder="cpf" type="text" name="cpf"/>
                             <input class="input__default" placeholder="telefone" type="text" name="telefone"/>
-                            <input class="input__default" placeholder="status" type="text" name="checkin"/>
-                            <div></div><div></div>
+                            <div></div><div></div><div></div>
                             
-                            <button class="button__default" type="button">salvar</button>
+                            <button class="button__default" type="submit">salvar</button>
                         </div>
                     
-                    <small>clique para editar</small>
-                    <textarea class="input__default" rows="7" disabled ></textarea>
+                        <small>Para editar digite o id do cliente, para criar deixe em branco</small>
+                        <table >
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>cpf</th>
+                                <th>Telefone</th>
+                            </tr>';
+                            
+                            for ($x = 0; $x < sizeof($pes); $x++){
+                                
+                                echo "<tr>";
+                                    echo "<td>".$pes[$x]->id."</td>";
+                                    echo "<td>".$pes[$x]->nome."</td>";
+                                    echo "<td>".$pes[$x]->cpf."</td>";
+                                    echo "<td>".$pes[$x]->telefone."</td>";
+                                echo "</tr>";
+                                
+                            }
+                            echo '
+                        </table>
+    
                     <button class="button__default--warning" onclick="document.location.href='.$sair.'" type="button">sair</button>
         
         

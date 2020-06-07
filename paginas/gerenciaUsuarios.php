@@ -1,4 +1,6 @@
 <?php
+include '_servidor.php';
+
 if (!isset($_SESSION)){
     session_start();
 
@@ -11,7 +13,27 @@ if (!isset($_SESSION)){
     $servico = "document.location.href='./gerenciaservicos.php'";
     // $nome = $_SESSION['nome']
 
+    
+
     if($_SESSION['perfil']==3){
+        try{
+            
+            $sql = "SELECT * FROM tblusuario " ; 
+                
+                $res = $db->query($sql);
+                $res = $db->prepare($sql);
+                $res->bindValue(1, '%a%');
+                $res->execute();
+                
+                $pes = $res->fetchAll(PDO::FETCH_OBJ);
+                
+            $db=null;
+    
+        }
+        catch(PDOException $e) { 
+        echo $e->getMessage();
+        }
+    
         echo '<html lang="pt-br">
         <head>
             <meta charset="UTF-8">
@@ -22,7 +44,7 @@ if (!isset($_SESSION)){
         <body>
             <div class="conteiner">
                 
-                <form  class="form__login">
+                <form  class="form__login" action="_gerenciar_usuarios.php" method="POST">
                     
                     <h1>Gerência</h1>
                     
@@ -36,20 +58,60 @@ if (!isset($_SESSION)){
         
                         </div>
                         <div class="input__gerencia">
-                            <input class="input__default" placeholder="ID da usuários" type="text" name="ID da usuários"/>
-                            <input class="input__default" placeholder="ID perfil" type="text" name="ID perfil"/>
+                            <input class="input__default" placeholder="ID da usuários" type="text" name="IDusuario"/>
+                            <input class="input__default" placeholder="ID perfil" type="text" name="IDperfil"/>
+                            <input class="input__default" placeholder="nome" type="text" name="nome"/>
+                            <input class="input__default" placeholder="cpf" type="text" name="cpf"/>
                             <input class="input__default" placeholder="email" type="text" name="email"/>
                             <input class="input__default" placeholder="senha" type="text" name="senha"/>
                             <input class="input__default" placeholder="endereço" type="text" name="endereco"/>
                             <input class="input__default" placeholder="numero" type="text" name="numero"/>
                             <input class="input__default" placeholder="telefone" type="text" name="telefone"/>
-                            <input class="input__default" placeholder="status" type="text" name="status"/>
-                            <div></div><div></div><div></div>
-                            <button class="button__default" type="button">salvar</button>
+                            <select class="input__default" placeholder="status" type="text" name="statusr">
+                                <option value="A">Ativo</option>
+                                <option value="P">Pendente</option>
+                                <option value="D">Desligado</option>
+                            </select>
+                            <div></div>
+                            <button class="button__default" type="submit">salvar</button>
                         </div>
                     
-                    <small>clique para editar</small>
-                    <textarea class="input__default" rows="7" disabled ></textarea>
+                    <small>Para editar digite o id do usuário , para criar deixe em branco</small>
+
+                    <table >
+                    <tr>
+                        <th>ID Usuário</th>
+                        <th>ID perfil</th>
+                        <th>nome</th>
+                        <th>cpf</th>
+                        <th>email</th>
+                        <th>senha</th>
+                        <th>endereço</th>
+                        <th>numero</th>
+                        <th>telefone</th>
+                        <th>status</th>
+                        
+                    </tr>';
+                    
+                    for ($x = 0; $x < sizeof($pes); $x++){
+                        
+                        echo "<tr>";
+                            echo "<td>".$pes[$x]->idUsuario."</td>";
+                            echo "<td>".$pes[$x]->idPerfilUsuario."</td>";
+                            echo "<td>".$pes[$x]->nome."</td>";
+                            echo "<td>".$pes[$x]->cpf."</td>";
+                            echo "<td>".$pes[$x]->email."</td>";
+                            echo "<td>".$pes[$x]->senha."</td>";
+                            echo "<td>".$pes[$x]->endereco."</td>";
+                            echo "<td>".$pes[$x]->numero."</td>";
+                            echo "<td>".$pes[$x]->telefone."</td>";
+                            echo "<td>".$pes[$x]->status."</td>";
+                          
+                        echo "</tr>";
+                        
+                    }
+                    echo '
+                </table>
                     <button class="button__default--warning" onclick="document.location.href='.$sair.'" type="button">sair</button>
         
         

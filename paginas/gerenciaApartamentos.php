@@ -1,6 +1,6 @@
-
-
 <?php
+include '_servidor.php';
+
 if (!isset($_SESSION)){
     session_start();
 
@@ -14,6 +14,24 @@ if (!isset($_SESSION)){
     // $nome = $_SESSION['nome']
 
     if($_SESSION['perfil']==3){
+        try{
+            
+            $sql = "SELECT * FROM tblapartamento " ; 
+                
+                $res = $db->query($sql);
+                $res = $db->prepare($sql);
+                $res->bindValue(1, '%a%');
+                $res->execute();
+                
+                $pes = $res->fetchAll(PDO::FETCH_OBJ);
+                
+            $db=null;
+    
+        }
+        catch(PDOException $e) { 
+        echo $e->getMessage();
+        }
+
         echo '<html lang="pt-br">
         <head>
             <meta charset="UTF-8">
@@ -24,7 +42,7 @@ if (!isset($_SESSION)){
         <body>
             <div class="conteiner">
                 
-                <form  class="form__login">
+                <form  class="form__login" action="_gerenciar_apartamentos.php" method="POST">
                     
                     <h1>Gerência</h1>
                     
@@ -38,26 +56,48 @@ if (!isset($_SESSION)){
         
                         </div>
                         <div class="input__gerencia">
-                            <input class="input__default" placeholder="ID da apto" type="text" name="ID da usuários"/>
-                            <input class="input__default" placeholder="valor single" type="text" name="valor single"/>
-                            <input class="input__default" placeholder="valor double" type="text" name="valor double"/>
-                            <input class="input__default" placeholder="valor triple" type="text" name="valor triple"/>
-                            <input class="input__default" placeholder="status" type="text" name="status"/>
-                            <div></div><div></div>
-                            <button class="button__default" type="button">salvar</button>
+                            <input class="input__default" placeholder="ID da apto" type="text" name="IDapto"/>
+                            <input class="input__default" placeholder="numero Apto" type="text" name="apt"/>
+                            <input class="input__default" placeholder="valor single" type="text" name="valorSingle"/>
+                            <input class="input__default" placeholder="valor double" type="text" name="valorDouble"/>
+                            <input class="input__default" placeholder="valor triple" type="text" name="valorTriple"/>
+                            <select class="input__default" placeholder="status" type="text" name="status">
+                                <option value="A">Ativo</option>
+                                <option value="P">Pendente</option>
+                                <option value="D">Desligado</option>
+                            </select>
+                            <div></div>
+                            <button class="button__default" type="submit">salvar</button>
                         </div>
                     
-                    <small>clique para editar</small>
-                    <textarea class="input__default" rows="7" disabled ></textarea>
+                        <small>Para editar digite o id do apartamento, para criar deixe em branco</small>
+                        <table >
+                            <tr>
+                                <th>ID Apto</th>
+                                <th>Numero Apto</th>
+                                <th>Valor Single</th>
+                                <th>Valor Double</th>
+                                <th>Valor triple</th>
+                                <th>Status</th>
+                            </tr>';
+                            
+                            for ($x = 0; $x < sizeof($pes); $x++){
+                                
+                                echo "<tr>";
+                                    echo "<td>".$pes[$x]->idApartamento."</td>";
+                                    echo "<td>".$pes[$x]->apt."</td>";
+                                    echo "<td>".$pes[$x]->valorSingle."</td>";
+                                    echo "<td>".$pes[$x]->valorDouble."</td>";
+                                    echo "<td>".$pes[$x]->valorTriple."</td>";
+                                    echo "<td>".$pes[$x]->status."</td>";
+                                echo "</tr>";
+                                
+                            }
+                            echo '
+                        </table>
                     <button class="button__default--warning" onclick="document.location.href='.$sair.'" type="button">sair</button>
         
-        
-        
-        
-        
                 </form>
-        
-        
         
                 <div class="logo__p">
                     <img src="./10_21/1111svg.svg" alt="logo loremipson">

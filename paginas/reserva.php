@@ -1,5 +1,7 @@
 <?php
 if (!isset($_SESSION)){
+include '_servidor.php';
+
     session_start();
 
     $sair = "document.location.href='./_disconnect.php'";
@@ -7,6 +9,45 @@ if (!isset($_SESSION)){
     
 
     if($_SESSION['perfil']==2){
+        try{
+            
+            $sql = "SELECT * FROM tblproduto  WHERE status='A'" ; 
+                
+                $res = $db->query($sql);
+                $res = $db->prepare($sql);
+                $res->bindValue(1, '%a%');
+                $res->execute();
+                
+                $produto = $res->fetchAll(PDO::FETCH_OBJ);
+
+                // echo json_encode($produto);
+                
+    
+        }
+        catch(PDOException $e) { 
+        echo $e->getMessage();
+        }
+        try{
+            
+            $sql = "SELECT * FROM tblservico WHERE status='A'" ; 
+                
+                $res = $db->query($sql);
+                $res = $db->prepare($sql);
+                $res->bindValue(1, '%a%');
+                $res->execute();
+                
+                $servico = $res->fetchAll(PDO::FETCH_OBJ);
+
+                //echo json_encode($servico);
+
+                
+            $db=null;
+    
+        }
+        catch(PDOException $e) { 
+        echo $e->getMessage();
+        }
+
         echo '<html lang="pt-br">
         <head>
             <meta charset="UTF-8">
@@ -20,8 +61,8 @@ if (!isset($_SESSION)){
                 <div class="form__login">
                 <form class="displayflexColum" action="_reservar.php" method="POST">
                     
-                    <h1>Reserva</h1>
-                    <div class="displayflex">
+                    <h1>Cliente</h1>
+                    <div class="displaygrid2">
                         <label>Checkin
                             <input class="input__default" required type="date" name="checkin"/>
                         </label>
@@ -31,13 +72,48 @@ if (!isset($_SESSION)){
                         
                         
                     </div>
-                    <input class="input__default" required placeholder="quantidade de hopedes" type="number" name="qnthospedes"/>
+                    <input class="input__default" required placeholder="quantidade de hopedes" min="1" max="3" type="number" name="qnthospedes"/>
 
                     <span></span>
                     <button class="button__default" type="submit">reservar</button>
-        
+                    
+
         
                 </form>
+                <div  class="displaygrid2">
+                <form action="_pedir.php" method="POST">
+                    <label>Pedido de Produtos</label>
+                    <div class="displaygrid2">
+                        <input class="input__default" required placeholder="Id Reserva" type="text" name="idReserva"/>
+                        <input class="input__default" required placeholder="Quantidade" min="1" type="text" name="qtd"/>
+                    </div>
+                    <select class="input__default" required name="idProduto"/>';
+                    
+                    for ($x = 0; $x < sizeof($produto); $x++){
+                        
+                            echo "<option value=".$produto[$x]->idProduto.">".$produto[$x]->descricao."</option>";
+                        
+                    }
+
+                    echo '</select>
+                    <button class="button__default" type="submit">pedir</button>
+                    </form>
+                    <form action="_pedir.php" method="POST" >
+                    <label>Pedido de Serviços</label>
+                    <div class="displaygrid2">
+                        <input class="input__default" required placeholder="Id Reserva" type="text" name="idReserva"/>
+                        <input class="input__default" disable value="Quantidade 1" min="1" type="text" name="qtd"/>
+                    </div>
+                    <select class="input__default" required name="idServico"/>';
+                        for ($x = 0; $x < sizeof($servico); $x++){
+                        
+                            echo "<option value=".$servico[$x]->idServico.">".$servico[$x]->descricao."</option>";
+                        
+                    }
+                    echo '</select>
+                    <button class="button__default" type="submit">pedir</button>
+                    </form>
+                </div>
                 <button class="button__default--warning" onclick="document.location.href='.$sair.'" type="button">sair</button>
         
                 </div>

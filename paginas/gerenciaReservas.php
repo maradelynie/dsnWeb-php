@@ -15,26 +15,27 @@ if (!isset($_SESSION)){
     $produtos = "document.location.href='./gerenciaprodutos.php'";
     $servico = "document.location.href='./gerenciaservicos.php'";
 
-    try{
-            
-        $sql = "SELECT * FROM tblreserva where checkin=0 " ; 
-            
-            $res = $db->query($sql);
-            $res = $db->prepare($sql);
-            $res->bindValue(1, '%a%');
-            $res->execute();
-            
-            $pes = $res->fetchAll(PDO::FETCH_OBJ);
-
-            
-    	$db=null;
-
-    }
-    catch(PDOException $e) { 
-    echo $e->getMessage();
-    }
-
+    
     if($_SESSION['perfil']==3){
+        try{
+            
+            $sql = "SELECT * FROM tblreserva " ; 
+                
+                $res = $db->query($sql);
+                $res = $db->prepare($sql);
+                $res->bindValue(1, '%a%');
+                $res->execute();
+                
+                $pes = $res->fetchAll(PDO::FETCH_OBJ);
+    
+                
+            $db=null;
+    
+        }
+        catch(PDOException $e) { 
+        echo $e->getMessage();
+        }
+    
         echo '<html lang="pt-br">
         <head>
             <meta charset="UTF-8">
@@ -60,16 +61,22 @@ if (!isset($_SESSION)){
                         </div>
                         <div class="input__gerencia">
                             <input class="input__default" placeholder="ID da reserva" type="text" name="IDreserva"/>
-                            <input class="input__default" placeholder="Data reserva" type="date" name="datareserva"/>
+                            <small>data reserva<input class="input__default" placeholder="Data reserva" type="date" name="datareserva"/></small>
                             <input class="input__default" placeholder="ID cliente" type="text" name="IDcliente"/>
                             <input class="input__default" placeholder="ID apartamento" type="text" name="IDapartamento"/>
                             <input class="input__default" placeholder="Qtd de hospedes" type="text" name="qtdhospedes"/>
                             <input class="input__default" placeholder="valor total" type="text" name="valortotal"/>
                             <input class="input__default" placeholder="valor pago" type="text" name="valorpago"/>
-                            <input class="input__default" placeholder="checkin" type="text" name="checkin"/>
-                            <input class="input__default" placeholder="checkout" type="text" name="checkout"/>
-                            <input class="input__default" placeholder="data checkoin" type="date" name="dataCheckin"/>
-                            <input class="input__default" placeholder="data checkoout" type="date" name="dataCheckout"/>
+                            <small>Checkin<select class="input__default" placeholder="checkin" type="text" name="checkin"/>
+                                <option value="0">Pendente</option>
+                                <option value="1">Feito</option>
+                            </select></small>
+                            <small>Checkout<select class="input__default" placeholder="checkout" type="text" name="checkout"/>
+                                <option value="0">Pendente</option>
+                                <option value="1">Feito</option>
+                            </select></small>
+                            <small>data checkin<input class="input__default" placeholder="data checkoin" type="date" name="dataCheckin"/></small>
+                            <small>data checkout<input class="input__default" placeholder="data checkoout" type="date" name="dataCheckout"/></small>
                             <button class="button__default" type="submit">salvar</button>
                         </div>
         
@@ -78,6 +85,7 @@ if (!isset($_SESSION)){
                         <tr>
                             <th>ID reserva</th>
                             <th>Data reserva</th>
+                            <th>ID cliente</th>
                             <th>Id apt.</th>
                             <th>Qnt hosp.</th>
                             <th>Valor total</th>
@@ -93,6 +101,7 @@ if (!isset($_SESSION)){
                             echo "<tr>";
                                 echo "<td>".$pes[$x]->idReserva."</td>";
                                 echo "<td>".substr($pes[$x]->dataReserva,0,11)."</td>";
+                                echo "<td>".substr($pes[$x]->idCliente,0,11)."</td>";
                                 echo "<td>".$pes[$x]->idApartamento."</td>";
                                 echo "<td>".$pes[$x]->qtdHospedes."</td>";
                                 echo "<td>".$pes[$x]->valorTotalReserva."</td>";
