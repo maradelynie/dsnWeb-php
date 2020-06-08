@@ -1,5 +1,8 @@
 <?php
 include '_servidor.php';
+date_default_timezone_set("Brazil/East");
+$hoje = date('Y-m-d');
+
 
 if (!isset($_SESSION)){
     session_start();
@@ -8,10 +11,11 @@ if (!isset($_SESSION)){
     $sair = "document.location.href='./_disconnect.php'";
     $registrointerno = "document.location.href='./registrointerno.php'";
     $listareservas = "document.location.href='./listareservas.php'";
+    $listacheckins = "document.location.href='./listacheckins.php'";
 
     try{
             
-        $sql = "SELECT * FROM tblreserva"; 
+        $sql = "SELECT * FROM tblreserva WHERE dataCheckin='".$hoje." 00:00:00'AND checkin=0 "; 
             
         $res = $db->query($sql);
         $res = $db->prepare($sql);
@@ -20,16 +24,16 @@ if (!isset($_SESSION)){
         
         $pes = $res->fetchAll(PDO::FETCH_OBJ);
 
-        $sql2 = "SELECT * FROM tblapartamento  where status=A "; 
+        $sql2 = "SELECT * FROM tblapartamento  where status=1 "; 
         
         $res2 = $db->query($sql2);
         $res2 = $db->prepare($sql2);
         $res2->bindValue(1, '%a%');
         $res2->execute();
             
-            $pes2 = $res2->fetchAll(PDO::FETCH_OBJ);
+        $pes2 = $res2->fetchAll(PDO::FETCH_OBJ);
         
-            $apartamentos = sizeof($pes2)-sizeof($pes);
+        $apartamentos = sizeof($pes2)-sizeof($pes);
             
     	$db=null;
 
@@ -65,8 +69,8 @@ if (!isset($_SESSION)){
                     </form>
 
                     <label>Fazer Checkout</label>
-                    <form class="grid3" action="_checkiout.php" method="GET">
-                        <input class="input__default" required placeholder="ID da reserva" type="text" name="checkin"/>
+                    <form class="grid3" action="_checkout.php" method="GET">
+                        <input class="input__default" required placeholder="ID da reserva" type="text" name="checkout"/>
                         <button class="button__default" type="submit">fazer checkout</button>
                         <button class="button__default" onclick='.$listacheckins.' type="button">ver checkins</button>
 

@@ -72,7 +72,7 @@ echo $begin;
         
             $resError = $db->errorCode  ();
             if($resError == 0){
-                echo "Produto adicionado.";
+                echo "Serviço adicionado.";
 
             }else{
                 echo "Erro ".json_encode($db->errorInfo()[2]) ;

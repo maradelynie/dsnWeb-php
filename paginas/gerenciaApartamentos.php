@@ -62,9 +62,9 @@ if (!isset($_SESSION)){
                             <input class="input__default" placeholder="valor double" type="text" name="valorDouble"/>
                             <input class="input__default" placeholder="valor triple" type="text" name="valorTriple"/>
                             <select class="input__default" placeholder="status" type="text" name="status">
-                                <option value="A">Ativo</option>
-                                <option value="P">Pendente</option>
-                                <option value="D">Desligado</option>
+                                <option value="1">Ativo</option>
+                                <option value="2">Ocupado</option>
+                                <option value="0">Manutenção</option>
                             </select>
                             <div></div>
                             <button class="button__default" type="submit">salvar</button>

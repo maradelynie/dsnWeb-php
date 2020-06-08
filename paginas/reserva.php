@@ -73,7 +73,7 @@ include '_servidor.php';
                         
                     </div>
                     <input class="input__default" required placeholder="quantidade de hopedes" min="1" max="3" type="number" name="qnthospedes"/>
-
+                    
                     <span></span>
                     <button class="button__default" type="submit">reservar</button>
                     
@@ -102,7 +102,7 @@ include '_servidor.php';
                     <label>Pedido de Serviços</label>
                     <div class="displaygrid2">
                         <input class="input__default" required placeholder="Id Reserva" type="text" name="idReserva"/>
-                        <input class="input__default" disable value="Quantidade 1" min="1" type="text" name="qtd"/>
+                        <input class="input__default" disabled value="1" min="1" type="text" name="qtd"/>
                     </div>
                     <select class="input__default" required name="idServico"/>';
                         for ($x = 0; $x < sizeof($servico); $x++){

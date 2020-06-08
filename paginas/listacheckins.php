@@ -18,7 +18,7 @@ if (!isset($_SESSION)){
         tblreserva.dataCheckin, 
         tblreserva.dataCheckout, 
         tblcliente.nome 
-        FROM tblcliente INNER JOIN tblreserva ON tblreserva.idCliente = tblcliente.id" ; 
+        FROM tblcliente INNER JOIN tblreserva ON tblreserva.idCliente = tblcliente.id WHERE tblreserva.checkin = '1'" ; 
             
             $res = $db->query($sql);
             $res = $db->prepare($sql);
@@ -45,7 +45,7 @@ if (!isset($_SESSION)){
                 
                 <div  class="form__login">
                     
-                    <h1>Lista de Reveservas</h1>
+                    <h1>Lista de Checkins</h1>
 
                     <table >
                         <tr>
@@ -76,13 +76,10 @@ if (!isset($_SESSION)){
                     
                     <span></span>
                     <button class="button__default" onclick='.$atendimento.' type="button">voltar</button>
+                    <button class="button__default--warning" onclick='.$sair.' type="button">sair</button>
 
                 </div>
-                <div class="logo__p">
-                    <img src="./10_21/1111svg.svg" alt="logo loremipson">
-                    <img class="animacao1 fundologo1" src="./10_21/fundo.svg" alt="logo loremipson">
-                    <img class="animacao2 fundologo2" src="./10_21/fundo2.svg" alt="logo loremipson">
-                </div>
+
 
             </div>
         

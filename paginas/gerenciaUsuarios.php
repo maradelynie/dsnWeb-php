@@ -59,7 +59,11 @@ if (!isset($_SESSION)){
                         </div>
                         <div class="input__gerencia">
                             <input class="input__default" placeholder="ID da usuários" type="text" name="IDusuario"/>
-                            <input class="input__default" placeholder="ID perfil" type="text" name="IDperfil"/>
+                            <select class="input__default" placeholder="ID perfil" type="text" name="IDperfil">
+                                <option value="1">Atendente</option>
+                                <option value="2">Cliente</option>
+                                <option value="3">Gerente</option>
+                            </select>
                             <input class="input__default" placeholder="nome" type="text" name="nome"/>
                             <input class="input__default" placeholder="cpf" type="text" name="cpf"/>
                             <input class="input__default" placeholder="email" type="text" name="email"/>
