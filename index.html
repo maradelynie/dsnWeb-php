@@ -3,26 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRUD php</title>
-    
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
-    <style>
-    @media (max-width: 450px) {
-    .split {
-        display: block;
-    }
-}
-    </style>
+    <title>Hotel Lorem Ipson</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class ="split">
-    <div >
-        <h3>View do usuário</h3>
-        <iframe src="./adicionar_coleta.php"></iframe>
-    </div>
-    <div >
-        <h3>View do adminstrador</h3>
+<body>
+    <div class="conteiner">
+        <form class="form__login" method="post" action="_connect.php">
+            <h1>Login</h1>
+            <input class="input__default" required placeholder="cpf" autocomplete="false" type="text" name="cpf"/>
+            <input class="input__default" required placeholder="senha" autocomplete="false" type="password" name="senha"/>
+            <span>Faça seu registro <a href="./registro.html">aqui</a>.</span>
+            <button class="button__default" type="submit">Entrar</button>
+        </form>
+        <div class="logo__g">
+            <img src="./10_21/1111svg.svg" alt="logo loremipson">
+            <img class="animacao1 fundologo1" src="./10_21/fundo.svg" alt="logo loremipson">
+            <img class="animacao2 fundologo2" src="./10_21/fundo2.svg" alt="logo loremipson">
+        </div>
 
-        <iframe src="./listar_coleta.php"></iframe>
     </div>
+   
 </body>
 </html>
