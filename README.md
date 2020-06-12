@@ -1,6 +1,6 @@
 # Hotel Lorem Ipson
 
-That's a weekend project for a WEB DEVELOP CLASS. The challenge was use the PHP that is not my strong language.
+That's a weekend project for a WEB DEVELOPMENT CLASS. The challenge was use the PHP that is not my strong language.
 Dispite that, it was fun to try something outside of my confort-zone and I definitly know more about SLQ now.
 
 ## Getting Started
